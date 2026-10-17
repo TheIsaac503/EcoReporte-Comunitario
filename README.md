@@ -70,10 +70,33 @@ El diseño físico de la base de datos relacional se implementa sobre SQL Server
 ### 4. Organización del Repositorio
 ```text
 EcoReporte-Comunitario/
-├── docs/
-│   ├── diagramas/
-│   │   └── diagrama_clases.png
-│   └── database/
-│       ├── schema_sqlserver.sql
-│      
-|── README.md
+│
+├── .env                       # Credenciales locales de SQL Server (Ignorado en Git)
+├── .env.example               # Plantilla de configuración segura para el equipo
+├── .gitignore                 # Reglas para excluir venv/, .env y temporales de GitHub
+├── manage.py                  # Script ejecutable principal de comandos de Django
+├── README.md                  # Documentación general e instrucciones del proyecto
+├── requirements.txt           # Lista de paquetes pip necesarios para el proyecto
+│
+├── ecoreporte_project/        # [NÚCLEO DE CONFIGURACIÓN DEL SERVIDOR]
+│   ├── __init__.py            # Define el directorio como módulo Python
+│   ├── asgi.py                # Configuración de servidor asíncrono
+│   ├── settings.py            # Configuración global (SQL Server, apps, variables de entorno)
+│   ├── urls.py                # Enrutador principal de URLs del proyecto
+│   └── wsgi.py                # Interfaz de entrada para servidores web estándar
+│
+└── reportes/                  # [APLICACIÓN MODULAR DE NEGOCIO Y POO]
+    ├── migrations/            # Historial de migraciones para la BD
+    │   └── 0001_initial.py    # Migración inicial sincronizada con SQL Server
+    ├── templates/             # VISTAS E INTERFAZ WEB (HTML)
+    │   └── reportes/
+    │       ├── base.html      # Plantilla base con Bootstrap 5 y barra de navegación
+    │       ├── home.html      # Dashboard principal con métricas y estado del servidor
+    │       └── lista_tablas.html # Interfaz de consulta de las 6 tablas de SQL Server
+    ├── __init__.py
+    ├── admin.py               # Configuración del panel de administración
+    ├── apps.py                # Configuración modular de la app 'reportes'
+    ├── models.py              # Mapeo ORM de las 6 Clases POO (Roles, Usuarios, Categoria, etc.)
+    ├── tests.py               # Pruebas unitarias de la aplicación
+    ├── urls.py                # Rutas internas de la aplicación (/, /tablas/)
+    └── views.py               # Lógica de negocio que consulta SQL Server y renderiza HTML
