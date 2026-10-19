@@ -1,38 +1,121 @@
+
 {% extends 'reportes/base.html' %}
 
 {% block content %}
+
 <div class="p-5 mb-4 bg-white rounded-3 shadow-sm text-center">
-    <h1 class="display-5 fw-bold text-success">Sistema EcoReporte Comunitario</h1>
-    <p class="fs-5 text-secondary">Plataforma de gestión ambiental para el {{ comunidad }}</p>
+
+    <h1 class="display-5 fw-bold text-success">
+        🌱 Sistema EcoReporte Comunitario
+    </h1>
+
+    <p class="fs-5 text-secondary">
+        Plataforma de gestión ambiental para el {{ comunidad }}
+    </p>
+
     <hr class="my-4">
-    <div class="row text-center mt-4">
+
+    <!-- Estadísticas del sistema -->
+    <div class="row text-center mt-4 g-3">
+
         <div class="col-md-3">
-            <div class="card bg-primary text-white p-3 shadow-sm">
+            <div class="card bg-primary text-white p-3 shadow-sm h-100">
                 <h3>{{ total_reportes }}</h3>
                 <p class="mb-0">Reportes Totales</p>
             </div>
         </div>
+
         <div class="col-md-3">
-            <div class="card bg-warning text-dark p-3 shadow-sm">
+            <div class="card bg-warning text-dark p-3 shadow-sm h-100">
                 <h3>{{ reportes_pendientes }}</h3>
                 <p class="mb-0">Pendientes</p>
             </div>
         </div>
+
         <div class="col-md-3">
-            <div class="card bg-info text-white p-3 shadow-sm">
+            <div class="card bg-info text-white p-3 shadow-sm h-100">
                 <h3>{{ total_usuarios }}</h3>
                 <p class="mb-0">Usuarios Registrados</p>
             </div>
         </div>
+
         <div class="col-md-3">
-            <div class="card bg-success text-white p-3 shadow-sm">
+            <div class="card bg-success text-white p-3 shadow-sm h-100">
                 <h3>{{ total_categorias }}</h3>
                 <p class="mb-0">Categorías</p>
             </div>
         </div>
+
     </div>
+
+    <hr class="my-5">
+
+    <!-- Accesos rápidos -->
+    <h2 class="text-success mb-4">¿Qué deseas hacer?</h2>
+
+    <div class="row g-4">
+
+        <!-- Registrar reporte -->
+        <div class="col-md-6">
+            <div class="card h-100 border-success shadow-sm">
+                <div class="card-body p-4">
+
+                    <div class="display-4 mb-3">📝</div>
+
+                    <h4 class="text-success">
+                        Registrar reporte ambiental
+                    </h4>
+
+                    <p class="text-secondary">
+                        Informa sobre acumulación de basura,
+                        contaminación y otros problemas ambientales
+                        de nuestra comunidad.
+                    </p>
+
+                    <a href="{% url 'crear_reporte' %}"
+                       class="btn btn-success btn-lg">
+                        Registrar reporte
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Consultar reportes -->
+        <div class="col-md-6">
+            <div class="card h-100 border-success shadow-sm">
+                <div class="card-body p-4">
+
+                    <div class="display-4 mb-3">📋</div>
+
+                    <h4 class="text-success">
+                        Consultar reportes ambientales
+                    </h4>
+
+                    <p class="text-secondary">
+                        Revisa los reportes registrados,
+                        sus ubicaciones, categorías y estados.
+                    </p>
+
+                    <a href="{% url 'listar_reportes' %}"
+                       class="btn btn-outline-success btn-lg">
+                        Ver reportes
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Consulta de las tablas SQL -->
     <div class="mt-4">
-        <a href="{% url 'vista_tablas' %}" class="btn btn-outline-success btn-lg">Ver Registros de Base de Datos</a>
+        <a href="{% url 'vista_tablas' %}"
+           class="btn btn-outline-dark btn-lg">
+            🗄️ Ver Registros de Base de Datos
+        </a>
     </div>
+
 </div>
+
 {% endblock %}

@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar reporte ambiental</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+        body {
+            background: #eef5ee;
+            font-family: Arial, sans-serif;
+        }
+
+        .formulario {
+            max-width: 750px;
+            margin: 45px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.10);
+        }
+
+        .titulo {
+            color: #236b45;
+            font-weight: bold;
+        }
+
+        .btn-verde {
+            background: #237a4b;
+            color: white;
+            border: none;
+        }
+
+        .btn-verde:hover {
+            background: #195c37;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="formulario">
+
+            <h2 class="titulo text-center mb-2">
+                🌱 EcoReporte Comunitario
+            </h2>
+
+            <p class="text-center text-muted mb-4">
+                Ayúdanos a cuidar nuestra comunidad.
+                Registra un problema ambiental.
+            </p>
+
+            {% if messages %}
+                {% for mensaje in messages %}
+                    <div class="alert alert-success">
+                        {{ mensaje }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %}
+
+                {{ formulario.non_field_errors }}
+
+                <div class="mb-3">
+                    <label class="form-label">
+                        {{ formulario.Titulo.label }}
+                    </label>
+                    {{ formulario.Titulo }}
+                    {{ formulario.Titulo.errors }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">
+                        {{ formulario.Descripcion.label }}
+                    </label>
+                    {{ formulario.Descripcion }}
+                    {{ formulario.Descripcion.errors }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">
+                        {{ formulario.UbicacionReferencial.label }}
+                    </label>
+                    {{ formulario.UbicacionReferencial }}
+                    {{ formulario.UbicacionReferencial.errors }}
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">
+                        {{ formulario.IdCategoria.label }}
+                    </label>
+                    {{ formulario.IdCategoria }}
+                    {{ formulario.IdCategoria.errors }}
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-verde btn-lg">
+                        Registrar reporte
+                    </button>
+                </div>
+            </form>
+
+            <div class="text-center mt-3">
+                <a href="/" class="text-success">
+                    Volver al inicio
+                </a>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
