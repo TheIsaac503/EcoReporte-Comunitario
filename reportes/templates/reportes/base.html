@@ -10,10 +10,38 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-success mb-4">
         <div class="container">
             <a class="navbar-brand fw-bold" href="{% url 'home' %}">🌱 EcoReporte Comunitario</a>
-            <div class="navbar-nav">
-                <a class="nav-link text-white" href="{% url 'home' %}">Inicio</a>
-                <a class="nav-link text-white" href="{% url 'vista_tablas' %}">Consultar Tablas SQL</a>
-            </div>
+            
+<div class="navbar-nav">
+    <a class="nav-link text-white" href="{% url 'home' %}">
+        Inicio
+    </a>
+
+    <a class="nav-link text-white" href="{% url 'vista_tablas' %}">
+        Consultar Tablas SQL
+    </a>
+
+    {% if user.is_authenticated %}
+        <span class="nav-link text-white">
+            Hola, {{ user.Nombre }}
+        </span>
+
+        <form method="POST" action="{% url 'logout' %}" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-light btn-sm mt-1">
+                Cerrar sesión
+            </button>
+        </form>
+    {% else %}
+        <a class="nav-link text-white" href="{% url 'login' %}">
+            Iniciar sesión
+        </a>
+
+        <a class="nav-link text-white" href="{% url 'registrar_usuario' %}">
+            Crear cuenta
+        </a>
+    {% endif %}
+</div>
+
         </div>
     </nav>
 

@@ -86,17 +86,34 @@ EcoReporte-Comunitario/
 │   └── wsgi.py                # Interfaz de entrada para servidores web estándar
 │
 └── reportes/                  # [APLICACIÓN MODULAR DE NEGOCIO Y POO]
-    ├── migrations/            # Historial de migraciones para la BD
-    │   └── 0001_initial.py    # Migración inicial sincronizada con SQL Server
-    ├── templates/             # VISTAS E INTERFAZ WEB (HTML)
-    │   └── reportes/
-    │       ├── base.html      # Plantilla base con Bootstrap 5 y barra de navegación
-    │       ├── home.html      # Dashboard principal con métricas y estado del servidor
-    │       └── lista_tablas.html # Interfaz de consulta de las 6 tablas de SQL Server
-    ├── __init__.py
-    ├── admin.py               # Configuración del panel de administración
-    ├── apps.py                # Configuración modular de la app 'reportes'
-    ├── models.py              # Mapeo ORM de las 6 Clases POO (Roles, Usuarios, Categoria, etc.)
-    ├── tests.py               # Pruebas unitarias de la aplicación
-    ├── urls.py                # Rutas internas de la aplicación (/, /tablas/)
-    └── views.py               # Lógica de negocio que consulta SQL Server y renderiza HTML
+│   ├── migrations/            # Historial de migraciones para la BD
+│   │   └── 0001_initial.py    # Migración inicial sincronizada con SQL Server
+│   ├── templates/             # VISTAS E INTERFAZ WEB (HTML)
+│   │   └── reportes/
+│   │       ├── base.html      # Plantilla base con Bootstrap 5 y barra de navegación
+│   │       ├── home.html      # Dashboard principal con métricas y estado del servidor
+│   │       └── lista_tablas.html # Interfaz de consulta de las 6 tablas de SQL Server
+│   ├── __init__.py
+│   ├── admin.py               # Configuración del panel de administración
+│   ├── apps.py                # Configuración modular de la app'reportes'
+│   ├── models.py              # Mapeo ORM de las 6 Clases POO (Roles,Usuarios, Categoria, etc.)
+│   ├── tests.py               # Pruebas unitarias de la aplicación
+│   ├── urls.py                # Rutas internas de la aplicación (/, /tablas/)
+│   └── views.py               # Lógica de negocio que consulta SQL Server y renderiza HTML
+│
+│
+│── usuarios/                  # [APLICACIÓN MODULAR DE GESTIÓN DE USUARIOS]
+│   ├── migrations/            # Historial de migraciones para la base de datos
+│   │   ├── 0001_initial.py    # Migración inicial de los modelos de usuario
+│   │   └── 0002_alter_usuario_managers.py # Ajuste de gestores (managers) para el modelo
+│   ├── templates/             # VISTAS E INTERFAZ WEB (HTML)
+│   │   └── usuarios/
+│   │       └── registro.html  # Plantilla con el formulario de registro de usuario
+│   ├── __init__.py            # Define el directorio como módulo Python
+│   ├── admin.py               # Registro y configuración del panel de administración
+│   ├── apps.py                # Configuración modular de la app 'usuarios'
+│   ├── forms.py               # Formulario(s) personalizado(s) para el registro/edición
+│   ├── models.py              # Definición de las clases/modelos de la base de datos
+│   ├── tests.py               # Pruebas unitarias específicas para la gestión de usuarios
+│   ├── urls.py                # Enrutador de rutas internas de la app usuarios
+│   └── views.py               # Lógica de negocio (procesamiento de solicitudes y renderizado)

@@ -86,10 +86,3 @@ CONSTRAINT FK_HistorialEstado_ReporteAmbiental FOREIGN KEY (IdReporteAmbiental) 
 CONSTRAINT FK_HistorialEstado_Admin FOREIGN KEY(IdUsuarioAdmin) REFERENCES Usuarios(IdUsuario) ON DELETE NO ACTION
 );
 GO
-
-SELECT * FROM Roles;
-SELECT * FROM Usuarios;
-SELECT * FROM Categoria;
-SELECT * FROM ReporteAmbiental;
-SELECT * FROM EvidenciaFotografia;
-SELECT * FROM HistorialEstado;
