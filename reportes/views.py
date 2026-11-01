@@ -53,28 +53,17 @@ def vista_tablas(request):
 def crear_reporte(request):
     if request.method == 'POST':
         formulario = ReporteAmbientalForm(request.POST)
-
         if formulario.is_valid():
             reporte = formulario.save(commit=False)
             reporte.IdUsuario = request.user
             reporte.Estado = 'Pendiente'
             reporte.save()
-
-            messages.success(
-                request,
-                '¡Tu reporte ambiental se registró correctamente!'
-            )
-
+            messages.success(request, '¡Tu reporte ambiental se registró correctamente!')
             return redirect('crear_reporte')
     else:
         formulario = ReporteAmbientalForm()
 
-    return render(
-        request,
-        'reportes/crear_reporte.html',
-        {'formulario': formulario}
-    )
-
+    return render(request, 'reportes/crear_reporte.html', {'form': formulario})
 
 def listar_reportes(request):
     reportes = ReporteAmbiental.objects.select_related(

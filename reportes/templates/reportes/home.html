@@ -1,7 +1,16 @@
-
 {% extends 'reportes/base.html' %}
-
+{% load static %}
 {% block content %}
+
+<style>
+  body {
+     background-image: url("{% static 'fondo.jpg' %}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+  }
+</style>
 
 <div class="p-5 mb-4 bg-white rounded-3 shadow-sm text-center">
 
