@@ -86,3 +86,7 @@ CONSTRAINT FK_HistorialEstado_ReporteAmbiental FOREIGN KEY (IdReporteAmbiental) 
 CONSTRAINT FK_HistorialEstado_Admin FOREIGN KEY(IdUsuarioAdmin) REFERENCES Usuarios(IdUsuario) ON DELETE NO ACTION
 );
 GO
+
+INSERT INTO django_migrations (app, name, applied) 
+VALUES ('usuarios', '0001_initial', GETDATE());
+

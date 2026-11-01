@@ -5,26 +5,27 @@ from .models import Usuario
 
 
 class RegistroUsuarioForm(forms.Form):
-    Nombre = forms.CharField(max_length=50, label="Nombre")
-    Apellido = forms.CharField(max_length=60, label="Apellido")
+    Nombre = forms.CharField(max_length=50, label="Nombre", widget=forms.TextInput(attrs={"class": "form-control"}))
+    Apellido = forms.CharField(max_length=60, label="Apellido", widget=forms.TextInput(attrs={"class": "form-control"}))
 
-    Correo = forms.EmailField(label="Correo electrónico")
+    Correo = forms.EmailField(label="Correo electrónico", widget=forms.EmailInput(attrs={"class": "form-control"}))
 
     Telefono = forms.CharField(
         max_length=20,
         required=False,
-        label="Teléfono"
+        label="Teléfono",
+        widget=forms.TextInput(attrs={"class": "form-control"})
     )
 
     password1 = forms.CharField(
         label="Contraseña",
         min_length=8,
-        widget=forms.PasswordInput
+        widget=forms.PasswordInput(attrs={"class": "form-control"})
     )
 
     password2 = forms.CharField(
         label="Confirmar contraseña",
-        widget=forms.PasswordInput
+        widget=forms.PasswordInput(attrs={"class": "form-control"})
     )
 
     def clean_Correo(self):
