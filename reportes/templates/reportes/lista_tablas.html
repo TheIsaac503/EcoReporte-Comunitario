@@ -1,6 +1,18 @@
 {% extends 'reportes/base.html' %}
 
 {% block content %}
+{% load static %}
+
+<style>
+  body {
+     background-image: url("{% static 'fondo.jpeg' %}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+  }
+</style>
+
 <h2 class="mb-4 text-success">📊 Consulta General de Tablas (SQL Server)</h2>
 
 <!-- Tabla Categorías -->

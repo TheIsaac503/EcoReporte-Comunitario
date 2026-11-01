@@ -1,6 +1,18 @@
 {% extends 'reportes/base.html' %}
 {% block title %}{{ titulo_pagina|default:"Registrar reporte" }} | EcoReporte{% endblock %}
 {% block content %}
+{% load static %}
+
+<style>
+  body {
+     background-image: url("{% static 'fondo.jpeg' %}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+  }
+</style>
+
 <div class="card shadow-sm mx-auto" style="max-width:800px">
   <div class="card-body p-4 p-md-5">
     <h1 class="h3 text-success mb-2">{{ titulo_pagina|default:"Registrar reporte ambiental" }}</h1>

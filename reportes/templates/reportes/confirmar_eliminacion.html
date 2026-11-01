@@ -1,6 +1,19 @@
 {% extends 'reportes/base.html' %}
 {% block title %}Confirmar eliminación | EcoReporte{% endblock %}
 {% block content %}
+{% load static %}
+
+<style>
+  body {
+     background-image: url("{% static 'fondo.jpeg' %}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+  }
+</style>
+
+
 <div class="card shadow-sm mx-auto" style="max-width:620px">
  <div class="card-body p-4">
   <h1 class="h4 text-danger">Confirmar eliminación</h1>
