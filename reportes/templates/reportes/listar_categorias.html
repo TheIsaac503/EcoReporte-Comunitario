@@ -1,0 +1,18 @@
+{% extends 'reportes/base.html' %}
+{% block title %}Categorías | EcoReporte{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+ <div><h1 class="h3 text-success">Categorías ambientales</h1><p class="text-muted mb-0">Administración de categorías de los reportes.</p></div>
+ <a class="btn btn-success" href="{% url 'crear_categoria' %}">+ Nueva categoría</a>
+</div>
+<div class="card shadow-sm"><div class="card-body table-responsive">
+<table class="table table-hover align-middle mb-0">
+<thead class="table-success"><tr><th>Nombre</th><th>Descripción</th><th>Acciones</th></tr></thead>
+<tbody>{% for categoria in categorias %}
+<tr><td>{{ categoria.NombreCategoria }}</td><td>{{ categoria.Descripcion }}</td><td class="text-nowrap">
+<a class="btn btn-sm btn-outline-primary" href="{% url 'editar_categoria' categoria.pk %}">Editar</a>
+<a class="btn btn-sm btn-outline-danger" href="{% url 'eliminar_categoria' categoria.pk %}">Eliminar</a>
+</td></tr>
+{% empty %}<tr><td colspan="3" class="text-center text-muted">No hay categorías registradas.</td></tr>{% endfor %}</tbody>
+</table></div></div>
+{% endblock %}

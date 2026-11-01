@@ -87,9 +87,6 @@ CONSTRAINT FK_HistorialEstado_Admin FOREIGN KEY(IdUsuarioAdmin) REFERENCES Usuar
 );
 GO
 
-SELECT * FROM Roles;
-SELECT * FROM Usuarios;
-SELECT * FROM Categoria;
-SELECT * FROM ReporteAmbiental;
-SELECT * FROM EvidenciaFotografia;
-SELECT * FROM HistorialEstado;
+INSERT INTO django_migrations (app, name, applied) 
+VALUES ('usuarios', '0001_initial', GETDATE());
+

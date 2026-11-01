@@ -114,13 +114,19 @@
                         required
                     >
                 </div>
-
                 <div class="d-grid">
                     <button type="submit" class="btn btn-verde btn-lg">
                         Iniciar sesión
                     </button>
                 </div>
             </form>
+            <br>           
+            <div class="d-grid">
+                <a href="{% url 'registrar_usuario' %}" class="btn btn-outline-success btn-lg">
+                Registrar nuevo usuario
+                </a>
+            </div>
+
 
             <div class="text-center mt-4">
                 <a href="{% url 'home' %}" class="text-success">

@@ -109,22 +109,30 @@
                     <a href="{% url 'listar_reportes' %}"
                        class="btn btn-outline-success btn-lg">
                         Ver reportes
+                     
                     </a>
-
                 </div>
             </div>
         </div>
 
     </div>
 
+    {% if user.is_staff %}
+    <div class="mt-4">
+        <a href="{% url 'listar_categorias' %}" class="btn btn-outline-success btn-lg">
+            Administrar categorías
+        </a>
+    </div>
+    {% endif %}
+
     <!-- Consulta de las tablas SQL -->
     <div class="mt-4">
         <a href="{% url 'vista_tablas' %}"
            class="btn btn-outline-dark btn-lg">
             🗄️ Ver Registros de Base de Datos
+        
         </a>
     </div>
-
 </div>
 
 {% endblock %}
