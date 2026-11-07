@@ -2,7 +2,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect, render
-
+from pathlib import Path
+from django.core.files.storage import default_storage
 from usuarios.models import Usuario, Rol
 from .forms import ReporteAmbientalForm, CategoriaForm, EstadoReporteForm
 from .models import Categoria, ReporteAmbiental, EvidenciaFotografia, HistorialEstado
@@ -11,6 +12,20 @@ from .models import Categoria, ReporteAmbiental, EvidenciaFotografia, HistorialE
 def es_administrador(user):
     # is_staff habilita las funciones de gestión del sistema.
     return user.is_authenticated and user.is_staff
+
+def guardar_evidencia(reporte, archivo):
+    nombre_archivo = Path(archivo.name).name
+
+    ruta = default_storage.save(
+        f"evidencias/{reporte.pk}/{nombre_archivo}",
+        archivo
+    )
+
+    EvidenciaFotografia.objects.create(
+        RutaArchivo=ruta,
+        Tamano=archivo.size,
+        IdReporteAmbiental=reporte
+    )
 
 
 def home(request):
@@ -39,22 +54,41 @@ def vista_tablas(request):
     return render(request, "reportes/lista_tablas.html", context)
 
 
+
 @login_required
 def crear_reporte(request):
     if request.method == "POST":
-        formulario = ReporteAmbientalForm(request.POST)
+        formulario = ReporteAmbientalForm(
+            request.POST,
+            request.FILES
+        )
+
         if formulario.is_valid():
             reporte = formulario.save(commit=False)
             reporte.IdUsuario = request.user
             reporte.Estado = "Pendiente"
             reporte.save()
-            messages.success(request, "¡Tu reporte ambiental se registró correctamente!")
+
+            fotografia = formulario.cleaned_data.get("FotoEvidencia")
+
+            if fotografia:
+                guardar_evidencia(reporte, fotografia)
+
+            messages.success(
+                request,
+                "¡Tu reporte ambiental se registró correctamente!"
+            )
+
             return redirect("listar_reportes")
+
     else:
         formulario = ReporteAmbientalForm()
+
     return render(request, "reportes/crear_reporte.html", {
-        "formulario": formulario, "titulo_pagina": "Registrar reporte",
+        "formulario": formulario,
+        "titulo_pagina": "Registrar reporte",
     })
+
 
 
 def listar_reportes(request):

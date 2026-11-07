@@ -3,6 +3,15 @@ from .models import ReporteAmbiental, Categoria
 
 
 class ReporteAmbientalForm(forms.ModelForm):
+
+    FotoEvidencia = forms.ImageField(
+    required=False,
+    label="Evidencia fotográfica",
+    widget=forms.ClearableFileInput(attrs={
+        "class": "form-control",
+        "accept": "image/*"
+    })
+)
     class Meta:
         model = ReporteAmbiental
         fields = ["Titulo", "Descripcion", "UbicacionReferencial", "IdCategoria"]
@@ -27,6 +36,7 @@ class ReporteAmbientalForm(forms.ModelForm):
             "UbicacionReferencial": "Ubicación del problema",
             "IdCategoria": "Categoría ambiental",
         }
+
 
 
 class CategoriaForm(forms.ModelForm):
