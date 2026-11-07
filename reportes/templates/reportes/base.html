@@ -29,10 +29,15 @@
         <a class="nav-link" href="{% url 'listar_reportes' %}">Reportes</a>
         {% if user.is_authenticated %}
           <a class="nav-link" href="{% url 'crear_reporte' %}">Registrar reporte</a>
-          {% if user.is_staff %}
-            <a class="nav-link" href="{% url 'listar_categorias' %}">Categorías</a>
-            <a class="nav-link" href="{% url 'vista_tablas' %}">Base de datos</a>
-          {% endif %}
+          <a class="nav-link" href="{% url 'listar_categorias' %}">
+    Categorías
+</a>
+
+{% if user.is_staff %}
+    <a class="nav-link" href="{% url 'vista_tablas' %}">
+        Base de datos
+    </a>
+{% endif %}
           <span class="navbar-text text-white ms-lg-3 me-lg-2">Hola, {{ user.Nombre }}</span>
           <form method="post" action="{% url 'logout' %}" class="d-inline">
             {% csrf_token %}

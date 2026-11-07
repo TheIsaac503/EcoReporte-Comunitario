@@ -41,3 +41,25 @@ class CategoriaForm(forms.ModelForm):
             "NombreCategoria": "Nombre de la categoría",
             "Descripcion": "Descripción",
         }
+
+
+class EstadoReporteForm(forms.Form):
+    Estado = forms.ChoiceField(
+        choices=ReporteAmbiental.ESTADOS,
+        widget=forms.Select(attrs={
+            "class": "form-select"
+        }),
+        label="Nuevo estado"
+    )
+
+    Observacion = forms.CharField(
+        required=False,
+        max_length=255,
+        widget=forms.Textarea(attrs={
+            "class": "form-control",
+            "rows": 3,
+            "placeholder": "Escribe una observación sobre el cambio..."
+        }),
+        label="Observación"
+    )
+

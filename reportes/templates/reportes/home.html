@@ -127,13 +127,14 @@
     {% endif %}
 
     <!-- Consulta de las tablas SQL -->
-    <div class="mt-4">
-        <a href="{% url 'vista_tablas' %}"
-           class="btn btn-outline-dark btn-lg">
-            🗄️ Ver Registros de Base de Datos
-        
-        </a>
-    </div>
+    {% if user.is_staff %}
+<div class="mt-4">
+    <a href="{% url 'vista_tablas' %}"
+       class="btn btn-outline-dark btn-lg">
+        🗄️ Ver Registros de Base de Datos
+    </a>
+</div>
+{% endif %}
 </div>
 
 {% endblock %}

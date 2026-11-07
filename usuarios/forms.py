@@ -1,7 +1,7 @@
 
 from django import forms
 from django.utils.text import slugify
-from .models import Usuario
+from .models import Usuario, Rol
 
 
 class RegistroUsuarioForm(forms.Form):
@@ -60,11 +60,20 @@ class RegistroUsuarioForm(forms.Form):
 
         return datos
 
+    
     def save(self):
         datos = self.cleaned_data
         correo = datos['Correo'].strip()
 
-        # Generar un username único automáticamente.
+    # Buscar el rol Ciudadano o crearlo si todavía no existe.
+        rol_ciudadano, creado = Rol.objects.get_or_create(
+            NombreRol='Ciudadano',
+            defaults={
+                'Descripcion': 'Usuario registrado en el sistema'
+        }
+    )
+
+    # Generar un username único automáticamente.
         base = slugify(correo.split('@')[0]) or 'usuario'
         username = base
         contador = 1
@@ -73,6 +82,7 @@ class RegistroUsuarioForm(forms.Form):
             username = f"{base}{contador}"
             contador += 1
 
+    # Crear el usuario asignándole automáticamente el rol Ciudadano.
         usuario = Usuario.objects.create_user(
             Correo=correo,
             password=datos['password1'],
@@ -80,7 +90,9 @@ class RegistroUsuarioForm(forms.Form):
             Nombre=datos['Nombre'],
             Apellido=datos['Apellido'],
             Telefono=datos.get('Telefono') or None,
-            Activo=True
-        )
+            Activo=True,
+            IdRol=rol_ciudadano
+    )
 
         return usuario
+

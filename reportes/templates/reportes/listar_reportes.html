@@ -31,10 +31,38 @@
 <td><span class="badge text-bg-secondary">{{ reporte.Estado }}</span></td>
 <td>{{ reporte.FechaCreacion|date:"d/m/Y" }}</td>
 <td class="text-nowrap">
-{% if user.is_authenticated and reporte.IdUsuario_id == user.pk or user.is_staff %}
-<a class="btn btn-sm btn-outline-primary" href="{% url 'editar_reporte' reporte.pk %}">Editar</a>
-<a class="btn btn-sm btn-outline-danger" href="{% url 'eliminar_reporte' reporte.pk %}">Eliminar</a>
-{% else %}<span class="text-muted small">—</span>{% endif %}
+{% if user.is_staff %}
+
+<a class="btn btn-sm btn-outline-success"
+   href="{% url 'cambiar_estado_reporte' reporte.pk %}">
+   Cambiar estado
+</a>
+
+<a class="btn btn-sm btn-outline-primary"
+   href="{% url 'editar_reporte' reporte.pk %}">
+   Editar
+</a>
+
+<a class="btn btn-sm btn-outline-danger"
+   href="{% url 'eliminar_reporte' reporte.pk %}">
+   Eliminar
+</a>
+
+{% elif user.is_authenticated and reporte.IdUsuario_id == user.pk %}
+
+<a class="btn btn-sm btn-outline-primary"
+   href="{% url 'editar_reporte' reporte.pk %}">
+   Editar
+</a>
+
+<a class="btn btn-sm btn-outline-danger"
+   href="{% url 'eliminar_reporte' reporte.pk %}">
+   Eliminar
+</a>
+
+{% else %}
+<span class="text-muted small">—</span>
+{% endif %}
 </td>
 </tr>{% endfor %}</tbody></table></div>
 {% else %}<div class="alert alert-info mb-0">Todavía no hay reportes registrados.</div>{% endif %}

@@ -4,7 +4,7 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect, render
 
 from usuarios.models import Usuario, Rol
-from .forms import ReporteAmbientalForm, CategoriaForm
+from .forms import ReporteAmbientalForm, CategoriaForm, EstadoReporteForm
 from .models import Categoria, ReporteAmbiental, EvidenciaFotografia, HistorialEstado
 
 
@@ -102,7 +102,6 @@ def eliminar_reporte(request, pk):
 
 
 @login_required
-@user_passes_test(es_administrador)
 def listar_categorias(request):
     categorias = Categoria.objects.all().order_by("NombreCategoria")
     return render(request, "reportes/listar_categorias.html", {"categorias": categorias})
@@ -158,3 +157,50 @@ def eliminar_categoria(request, pk):
     return render(request, "reportes/confirmar_eliminacion.html", {
         "objeto": categoria, "tipo": "categoría",
     })
+
+
+@login_required
+@user_passes_test(es_administrador)
+def cambiar_estado_reporte(request, pk):
+    reporte = get_object_or_404(ReporteAmbiental, pk=pk)
+
+    if request.method == "POST":
+        formulario = EstadoReporteForm(request.POST)
+
+        if formulario.is_valid():
+            nuevo_estado = formulario.cleaned_data["Estado"]
+            observacion = formulario.cleaned_data["Observacion"]
+
+            if nuevo_estado != reporte.Estado:
+                reporte.cambiar_estado(
+                    nuevo_estado,
+                    request.user,
+                    observacion
+                )
+
+                messages.success(
+                    request,
+                    "El estado del reporte se actualizó correctamente."
+                )
+            else:
+                messages.info(
+                    request,
+                    "El reporte ya tiene ese estado."
+                )
+
+            return redirect("listar_reportes")
+
+    else:
+        formulario = EstadoReporteForm(initial={
+            "Estado": reporte.Estado
+        })
+
+    return render(
+        request,
+        "reportes/cambiar_estado.html",
+        {
+            "formulario": formulario,
+            "reporte": reporte
+        }
+    )
+

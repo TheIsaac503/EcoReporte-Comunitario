@@ -90,3 +90,7 @@ GO
 INSERT INTO django_migrations (app, name, applied) 
 VALUES ('usuarios', '0001_initial', GETDATE());
 
+SELECT * FROM Roles;
+
+INSERT INTO Roles (NombreRol, Descripcion)
+VALUES ('Ciudadano', 'Usuario registrado en el sistema');
