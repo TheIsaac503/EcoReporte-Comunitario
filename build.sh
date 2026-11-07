@@ -12,23 +12,30 @@ python manage.py collectstatic --no-input
 # Aplicar las migraciones de Django
 python manage.py migrate --noinput
 
-# Crear superusuario automáticamente con argumentos posicionales
+# Crear superusuario personalizado
 if [ "$CREATE_SUPERUSER" = "true" ]; then
   python manage.py shell <<EOF
 from django.contrib.auth import get_user_model
 import os
 
 User = get_user_model()
-username = os.environ.get('DJANGO_SUPERUSER_USERNAME')
-email = os.environ.get('DJANGO_SUPERUSER_EMAIL')
-password = os.environ.get('DJANGO_SUPERUSER_PASSWORD')
 
-if username and password:
-    if not User.objects.filter(username=username).exists():
-        # Pasamos los parámetros por posición directamente
-        User.objects.create_superuser(username, email, password)
-        print(f"Superusuario '{username}' creado exitosamente.")
+# Variables de entorno
+email = os.environ.get('DJANGO_SUPERUSER_EMAIL', 'adescoadmin@gmail.com')
+username = os.environ.get('DJANGO_SUPERUSER_USERNAME', 'admin')
+password = os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'EltuleSA503')
+
+if email and password:
+    if not User.objects.filter(Correo=email).exists():
+        User.objects.create_superuser(
+            Correo=email,
+            password=password,
+            username=username,
+            Nombre='Admin',
+            Apellido='Sistema'
+        )
+        print(f"Superusuario con correo '{email}' creado exitosamente.")
     else:
-        print(f"El superusuario '{username}' ya existe.")
+        print(f"El superusuario con correo '{email}' ya existe.")
 EOF
 fi
